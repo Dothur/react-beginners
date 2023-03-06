@@ -2,4 +2,4 @@
 
 ## 2023 03 06 Start
 
-https://everlasting-flower-9c9.notion.site/Nomad-ReactJS-a4bf1fe7952045f59012e64bc6383772
+https://study-react.notion.site/Nomad-ReactJS-a4bf1fe7952045f59012e64bc6383772
