@@ -17,28 +17,23 @@
   ></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Title() {
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+    function Container() {
       return (
-        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-          Hello i'm a title
-        </h3>
+        // Arrow function
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={countUp}>Click me</button>
+        </div>
       );
     }
-    const Button = () => (
-      <button
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("im clicked")}
-      >
-        Click me
-      </button>
-    );
-    const Container = () => (
-      // Arrow function
-      <div>
-        <Title />
-        <Button />
-      </div>
-    );
-    ReactDOM.render(<Container />, root);
+    render();
   </script>
 </html>
