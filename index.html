@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
   <body>
     <div id="root"></div>
   </body>
@@ -62,7 +68,48 @@
       );
     }
     function KmToMiles() {
-      return <h3>KM to M</h3>;
+      // Challenge
+      const [amount, setAmonut] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmonut(event.target.value);
+      };
+      const reset = () => setAmonut(0);
+      const onInverted = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlfor="km">Kilometer</label>
+            <input
+              value={inverted ? amount * 1.60934 : amount}
+              id="km"
+              placeholder="Kilometer"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+
+          <div>
+            <label htmlfor="miles">Miles</label>
+            <input
+              value={inverted ? amount : amount * 0.6213712}
+              id="miles"
+              placeholder="Miles"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInverted}>
+            {inverted ? "Miles -> Km" : "Km -> Miles"}
+          </button>
+        </div>
+      );
     }
     function App() {
       const [index, setIndex] = React.useState("xx");
