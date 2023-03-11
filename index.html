@@ -22,112 +22,32 @@
     src="https://unpkg.com/@babel/standalone/babel.min.js"
   ></script>
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setInverted] = React.useState(false);
-      // 초기값 false : hours 를 disabled
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount(0);
-      const onInverted = () => {
-        reset();
-        setInverted((current) => !current);
-      };
-      // 현재값의 boolean 반대로
+    function Btn({ text, onClick }) {
+      console.log(text, "was rendered");
       return (
-        <div>
-          <div>
-            <label htmlfor="amount">Minutes</label>
-            <input
-              value={inverted ? amount * 60 : amount}
-              id="amount"
-              placeholder="Minutes"
-              type="number"
-              onChange={onChange}
-              disabled={inverted}
-            />
-          </div>
-
-          <div>
-            <label htmlfor="hours">Hours</label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              onChange={onChange}
-              disabled={!inverted}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onInverted}>
-            {inverted ? "Hour -> Min" : "Min -> Hours"}
-          </button>
-        </div>
+        <button
+          onClick={onClick}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: 16,
+          }}
+        >
+          {text}
+        </button>
       );
     }
-    function KmToMiles() {
-      // Challenge
-      const [amount, setAmonut] = React.useState(0);
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (event) => {
-        setAmonut(event.target.value);
-      };
-      const reset = () => setAmonut(0);
-      const onInverted = () => {
-        reset();
-        setInverted((current) => !current);
-      };
-      return (
-        <div>
-          <div>
-            <label htmlfor="km">Kilometer</label>
-            <input
-              value={inverted ? amount * 1.60934 : amount}
-              id="km"
-              placeholder="Kilometer"
-              type="number"
-              onChange={onChange}
-              disabled={inverted}
-            />
-          </div>
-
-          <div>
-            <label htmlfor="miles">Miles</label>
-            <input
-              value={inverted ? amount : amount * 0.6213712}
-              id="miles"
-              placeholder="Miles"
-              type="number"
-              onChange={onChange}
-              disabled={!inverted}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onInverted}>
-            {inverted ? "Miles -> Km" : "Km -> Miles"}
-          </button>
-        </div>
-      );
-    }
+    const MemorizedBtn = React.memo(Btn);
     function App() {
-      const [index, setIndex] = React.useState("xx");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="xx">Select your units</option>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          <hr />
-          {index === "xx" ? "Please select your units" : null}
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <MemorizedBtn text={value} onClick={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }
